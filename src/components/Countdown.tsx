@@ -82,7 +82,6 @@ function Countdown() {
   return (
     <>
       <Clock timeInSeconds={seconds} />
-      <div>{seconds}</div>
       {isRunning ? (
         <button onClick={pause}>Pause</button>
       ) : (
