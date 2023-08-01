@@ -11,10 +11,13 @@ function Clock({ timeInSeconds }: Props) {
   const hours = Math.floor((totalSeconds % (60 * 60 * 24)) / (60 * 60))
   const minutes = Math.floor((totalSeconds % (60 * 60)) / 60)
   const seconds = Math.floor(totalSeconds % 60)
+  const formattedTime = `${formatNumber(hours)}:${formatNumber(
+    minutes
+  )}:${formatNumber(seconds)}`
 
-  return (
-    <h1>{formatNumber(hours)}:{formatNumber(minutes)}:{formatNumber(seconds)}</h1>
-  )
+  window.document.title = formattedTime
+
+  return <h1>{formattedTime}</h1>
 }
 
 export default Clock
