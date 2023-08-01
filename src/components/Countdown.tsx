@@ -58,6 +58,7 @@ function Countdown() {
   )
 
   const handleExpire = useCallback(() => {
+    console.log('Finished: ', new Date())
     setIsRunning(false)
     setDelay(null)
   }, [])
@@ -71,11 +72,13 @@ function Countdown() {
 
   const resume = useCallback(() => {
     const time = new Date()
+    console.log('Started: ', time)
     time.setMilliseconds(time.getMilliseconds() + seconds * 1000)
     restart(time)
   }, [seconds, restart])
 
   const pause = useCallback(() => {
+    console.log('Paused: ', new Date())
     setIsRunning(false)
   }, [])
 
