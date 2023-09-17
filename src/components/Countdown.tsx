@@ -26,8 +26,8 @@ function calculateDelay(expiry: Date) {
 
 function getTimeParams() {
   const params = new URLSearchParams(window.location.search)
-  const hours = Number(params.get('hours'))
-  const minutes = Number(params.get('minutes'))
+  const hours = params.get('hours')
+  const minutes = params.get('minutes')
   return { hours, minutes }
 }
 
@@ -35,10 +35,14 @@ function getInitialExpiry() {
   const time = new Date()
   const defaultHours = 8
   const defaultMinutes = 0
-  const { hours, minutes } = getTimeParams()
+  const timeParams = getTimeParams()
+  const hours = timeParams.hours ? Number(timeParams.hours) : defaultHours
+  const minutes = timeParams.minutes
+    ? Number(timeParams.minutes)
+    : defaultMinutes
 
-  time.setHours(time.getHours() + (hours || defaultHours))
-  time.setMinutes(time.getMinutes() + (minutes || defaultMinutes))
+  time.setHours(time.getHours() + hours)
+  time.setMinutes(time.getMinutes() + minutes)
 
   return time
 }
