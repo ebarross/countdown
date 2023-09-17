@@ -24,14 +24,26 @@ function calculateDelay(expiry: Date) {
   return extraMilliSeconds > 0 ? extraMilliSeconds : DEFAULT_DELAY
 }
 
-const DEFAULT_DELAY = 1000
-const totalHours = 8
+function getTimeParams() {
+  const params = new URLSearchParams(window.location.search)
+  const hours = Number(params.get('hours'))
+  const minutes = Number(params.get('minutes'))
+  return { hours, minutes }
+}
 
 function getInitialExpiry() {
   const time = new Date()
-  time.setHours(time.getHours() + totalHours)
+  const defaultHours = 8
+  const defaultMinutes = 0
+  const { hours, minutes } = getTimeParams()
+
+  time.setHours(time.getHours() + (hours || defaultHours))
+  time.setMinutes(time.getMinutes() + (minutes || defaultMinutes))
+
   return time
 }
+
+const DEFAULT_DELAY = 1000
 
 function Countdown() {
   const [expiryTimestamp, setExpiryTimestamp] = useState<Date>(
